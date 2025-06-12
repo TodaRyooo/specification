@@ -1,9 +1,9 @@
 import { Marker } from "@/features/image-upload/types/marker";
-import { MouseEvent, RefObject, useCallback, useState } from "react";
+import { MouseEvent, useCallback, useState } from "react";
 
 interface UseMarkersProps {
   isMarkMode: boolean;
-  containerRef: RefObject<HTMLDivElement>;
+  containerRef: HTMLDivElement;
 }
 
 interface UseMarkersReturn {

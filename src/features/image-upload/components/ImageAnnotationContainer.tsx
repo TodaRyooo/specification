@@ -4,7 +4,7 @@ import { FC, useState, useCallback } from "react";
 import clsx from "clsx";
 import { ImageSelector } from "./ImageSelector";
 import { ImageAnnotation } from "./ImageAnnotation";
-import { Marker } from "../types";
+import { Marker } from "@/features/image-upload/types/marker";
 
 interface ImageAnnotatorContainerProps {
   width?: string;
@@ -17,34 +17,30 @@ export const ImageAnnotatorContainer: FC<ImageAnnotatorContainerProps> = ({
   height = "h-[400px]",
   className,
 }) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [currentMarkers, setCurrentMarkers] = useState<Marker[]>([]);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(null);
 
   const handleMarkersChange = useCallback((markers: Marker[]) => {
     setCurrentMarkers(markers);
   }, []);
 
+  const handleAddImage = (url: string) => setImageUrl(url);
+
   return (
     <div
       className={clsx(
         "flex items-center justify-center",
-        "rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700",
-        width,
-        height,
+        "rounded border-2 border border-gray-300 dark:border-gray-700",
+        imageUrl ? "w-fit" : width,
+        imageUrl ? "h-fit" : height,
         className,
       )}
     >
       {!imageUrl ? (
-        <ImageSelector
-          // onImageSelect={handleImageSelect}
-          width="w-full" // 親のサイズに合わせる
-          height="h-full" // 親のサイズに合わせる
-        />
+        <ImageSelector onImageSelect={handleAddImage} />
       ) : (
         <ImageAnnotation
           imageUrl={imageUrl}
           onMarkersChange={handleMarkersChange}
-          className="w-full h-full" // 親のサイズに合わせる
         />
       )}
     </div>

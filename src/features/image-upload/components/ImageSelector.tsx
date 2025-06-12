@@ -1,53 +1,43 @@
 "use client";
 
-import MarkerBlock from "@/features/image-upload/components/MarkerBlock";
 import clsx from "clsx";
-import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
+import { ChangeEvent, FC, useCallback, useRef } from "react";
 
 interface ImageSelectorProps {
-  width?: string;
-  height?: string;
+  onImageSelect: (url: string) => void;
 }
 
-const ImageSelector: FC<ImageSelectorProps> = ({
-  width = "w-fit",
-  height = "h-fit",
-}) => {
-  const [image, setImage] = useState<string | null>(null);
+export const ImageSelector: FC<ImageSelectorProps> = ({ onImageSelect }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = useCallback(() => {
     inputRef.current?.click();
   }, []);
 
-  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const url = reader.result as string;
-        setImage(url);
-      };
-      reader.readAsDataURL(file);
-    }
-  }, []);
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const url = reader.result as string;
+          onImageSelect(url);
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    [onImageSelect],
+  );
 
   return (
     <div
       className={clsx(
         "relative border border-white border-solid",
-        image ? "w-fit" : width,
-        image ? "h-fit" : height,
-        !image && "cursor-pointer",
+        "w-64 h-64 cursor-pointer",
       )}
       onClick={handleClick}
     >
-      {/* {markers.length > 0 && */}
-      {/* markers.map(({ id, x, y }) => ( */}
-      {/* <MarkerBlock key={id} id={id} x={x} y={y} /> */}
-      {/* ))} */}
-
       <p>クリックして画像を選択</p>
       <input
         className="hidden"
@@ -59,5 +49,3 @@ const ImageSelector: FC<ImageSelectorProps> = ({
     </div>
   );
 };
-
-export default ImageSelector;

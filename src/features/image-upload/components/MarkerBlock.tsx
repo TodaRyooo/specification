@@ -2,12 +2,6 @@ import { Marker } from "@/features/image-upload/types/marker";
 import clsx from "clsx";
 import { FC } from "react";
 
-// interface MarkerBlockProps {
-//   id: number;
-//   x: string;
-//   y: string;
-// }
-
 const MarkerBlock: FC<Marker> = ({ id, x, y }) => {
   return (
     <div
@@ -18,7 +12,7 @@ const MarkerBlock: FC<Marker> = ({ id, x, y }) => {
         "text-center",
         "cursor-default",
       )}
-      style={{ top: y, left: x }}
+      style={{ top: `${y}px`, left: `${x}px` }}
     >
       {id}
     </div>
