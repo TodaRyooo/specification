@@ -1,5 +1,6 @@
 'use client'
 
+import { CustomDrawer } from '@/components/composite/CustomDrawer'
 import { CustomTable } from '@/components/composite/CustomTable'
 import { Separator } from '@/components/ui/separator'
 import { Description } from '@/features/description/types/description'
@@ -36,6 +37,8 @@ export default function Home() {
       <div className="px-6">
         <CustomTable header={header} arr={arr} />
       </div>
+
+      <CustomDrawer />
       {/* <DescriptionTable dataArr={arr} /> */}
     </div>
   )
