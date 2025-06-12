@@ -9,20 +9,20 @@ import { useRef } from "react";
 
 interface ImageAnnotationProps {
   imageUrl: string;
-  // className?: string;
-  // onMarkersChange: (markers: Marker[]) => void;
+  onMarkersChange: (markers: Marker[]) => void;
 }
 
-export const ImageAnnotation = ({
-  imageUrl,
-  // onMarkersChange,
-}: ImageAnnotationProps) => {
+export const ImageAnnotation = ({ imageUrl }: ImageAnnotationProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isMarkMode = useAtomValue(markModeAtom);
   const { markers, addMarker } = useMarkers({ isMarkMode, containerRef });
 
   return (
-    <div ref={containerRef} className="w-full h-full" onClick={addMarker}>
+    <div
+      ref={containerRef}
+      className=" relative w-full h-full object-contains"
+      onClick={addMarker}
+    >
       <img
         src={imageUrl}
         alt="selected image"
