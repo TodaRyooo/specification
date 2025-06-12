@@ -13,6 +13,7 @@ export interface Description {
   displayData: string | null;
   displayEvent: string | null;
   note: string | null;
+  [key: string]: string | number | null;
 }
 
 /**
@@ -30,4 +31,5 @@ export interface Field {
   created: Date;
   updater: string;
   updated: Date;
+  [key: string]: string | Date;
 }
