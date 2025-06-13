@@ -1,3 +1,5 @@
+'use client'
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 export const CustomTable = <T extends Record<string, string | number | null>>({
